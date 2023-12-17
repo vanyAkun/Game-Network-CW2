@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Reflection;
 using TMPro;
+using System;
 
 public class MultiplayerLevelManager : MonoBehaviourPunCallbacks
 {
@@ -43,6 +44,18 @@ public class MultiplayerLevelManager : MonoBehaviourPunCallbacks
     void StorePersonalBest()
     {
         int currentScore = PhotonNetwork.LocalPlayer.GetScore();
+        PlayerData playerData = GameManager.instance.playerData;
+        if (currentScore > playerData.bestScore)
+        {
+            playerData.username = PhotonNetwork.LocalPlayer.NickName;
+            playerData.bestScore = currentScore;
+            playerData.bestScoreDate = DateTime.UtcNow.ToString();
+            playerData.totalPlayersInGame = PhotonNetwork.CurrentRoom.PlayerCount;
+            playerData.roomName = PhotonNetwork.CurrentRoom.Name;
+
+            GameManager.instance.SavePlayerData();
+
+        }
     }
 
     [PunRPC]
