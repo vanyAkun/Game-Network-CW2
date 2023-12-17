@@ -18,7 +18,7 @@ public class MultiplayerLobby : MonoBehaviourPunCallbacks
     public Transform insideRoomPlayerList;
     public Transform listRoomPanel; 
     public Transform listRoomPanelContent;//reference to the placewhere we will be placing and removing on-screen entries for available rooms.
- 
+    public Transform chatPanel;
 
 
     public InputField roomNameInput;
@@ -31,6 +31,8 @@ public class MultiplayerLobby : MonoBehaviourPunCallbacks
     string playerName;
 
     Dictionary<string, RoomInfo> cachedRoomList;
+
+    public Chat chat;
 
   private void Start()
     {
@@ -66,6 +68,7 @@ public class MultiplayerLobby : MonoBehaviourPunCallbacks
         CreateRoomPanel.gameObject.SetActive(false);
         InsideRoomPanel.gameObject.SetActive(false);
         ListRoomsPanel.gameObject.SetActive(false);
+        chatPanel.gameObject.SetActive(false);  
 
         if (PanelName == LoginPanel.gameObject.name)
             LoginPanel.gameObject.SetActive(true);
@@ -77,6 +80,8 @@ public class MultiplayerLobby : MonoBehaviourPunCallbacks
             InsideRoomPanel.gameObject.SetActive(true);
         else if (PanelName == ListRoomsPanel.gameObject.name)
             ListRoomsPanel.gameObject.SetActive(true);
+        else if (PanelName == chatPanel.gameObject.name)
+            chatPanel.gameObject.SetActive(true);
     }
   public void CreateARoom()
     {
@@ -121,6 +126,7 @@ public class MultiplayerLobby : MonoBehaviourPunCallbacks
     }
   public override void OnLeftRoom()
     {
+        chat.ChatClient.Disconnect();
         Debug.Log("Room left");
         ActivatePanel("CreateRoom");
 
@@ -145,6 +151,10 @@ public class MultiplayerLobby : MonoBehaviourPunCallbacks
     }
   public override void OnJoinedRoom()
     {
+        var authenticationValues = new Photon.Chat.AuthenticationValues(PhotonNetwork.LocalPlayer.NickName);
+        chat.userName = PhotonNetwork.LocalPlayer.NickName;
+        chat.ChatClient.Connect(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat, "1.0", authenticationValues);
+
         Debug.Log("Room has been joined");
         ActivatePanel("InsideRoom");
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
