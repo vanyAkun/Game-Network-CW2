@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Leguar.TotalJSON;
+using PlayFab;
+using PlayFab.ClientModels;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +15,27 @@ public string filePath;
     private void Start()
     {
         LoadPlayerData();
+        LoginToPlayFab();
 
+    }
+    void LoginToPlayFab()
+    {
+        LoginWithCustomIDRequest request = new LoginWithCustomIDRequest()
+        {
+            CreateAccount = true,
+            CustomId = playerData.uid,
+        };
+        PlayFabClientAPI.LoginWithCustomID(request,PlayFabLoginResult, PlayFabLoginError);
+    }
+
+    void PlayFabLoginResult (LoginResult loginResult)
+    {
+        Debug.Log("PlayFab = Login Succeeded: " +  loginResult.ToJson());
+    }
+
+    void PlayFabLoginError (PlayFabError loginError)
+    {
+        Debug.Log("PlayFab - Login Failed: " + loginError.ErrorMessage);
     }
     private void Awake()
     {

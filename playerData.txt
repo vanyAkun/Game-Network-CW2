@@ -1,1 +1,1 @@
-{"username":"Player 649308","bestScore":3,"bestScoreDate":"17/12/2023 16:57:44","totalPlayersInGame":2,"roomName":"bfb8430a-b70a-44cf-9c37-6796d61c9006"}
+{"uid":"2f39e6c0-fa52-4730-b369-95878afd8bc4","username":null,"bestScore":0,"bestScoreDate":null,"totalPlayersInGame":0,"roomName":null}
