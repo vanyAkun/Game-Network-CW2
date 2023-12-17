@@ -37,6 +37,12 @@ public class MultiplayerLevelManager : MonoBehaviourPunCallbacks
         }
 
         gameOverPopup.SetActive(true);
+        StorePersonalBest();
+    }
+
+    void StorePersonalBest()
+    {
+        int currentScore = PhotonNetwork.LocalPlayer.GetScore();
     }
 
     [PunRPC]
