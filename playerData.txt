@@ -1,1 +1,1 @@
-{"uid":"20ee41ad-ee9c-4977-a67d-cd190c1abd78","username":"Player 998662","bestScore":3,"bestScoreDate":"18/12/2023 12:09:22","totalPlayersInGame":2,"roomName":"f5a53415-a923-451f-b84c-7ebddac65ad7"}
+eyJ1aWQiOiJjZjA0ZDllYS0xMTQzLTRmNmMtOGNmYy0zZWU5MDUyNzBiNzEiLCJ1c2VybmFtZSI6IlBsYXllciA5MDUxNDkiLCJiZXN0U2NvcmUiOjIsImJlc3RTY29yZURhdGUiOiIxOC8xMi8yMDIzIDEyOjE5OjQ3IiwidG90YWxQbGF5ZXJzSW5HYW1lIjoyLCJyb29tTmFtZSI6IjM3MjE2NjVhLTlmODEtNGJlMi1iOTgxLTVjYjIyNTIxOTQxNiJ9

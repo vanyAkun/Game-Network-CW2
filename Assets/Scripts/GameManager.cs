@@ -49,9 +49,13 @@ public GlobalLeaderboard globalLeaderboard;
             Destroy(this);
         }
     }
-    public void SavePlayerData()
-    {  string serialisedDataString = JSON.Serialize(playerData).CreateString();
-        File.WriteAllText(filePath, serialisedDataString);
+    public void SavePlayerData() //JSON 64 CODE DECODE
+    {
+        string serialisedDataString = JSON.Serialize(playerData).CreateString();
+        // Encode the JSON string to Base64
+        byte[] bytesToEncode = System.Text.Encoding.UTF8.GetBytes(serialisedDataString);
+        string encodedText = Convert.ToBase64String(bytesToEncode);
+        File.WriteAllText(filePath, encodedText);
     }
     public void LoadPlayerData()
     {
@@ -60,7 +64,13 @@ public GlobalLeaderboard globalLeaderboard;
             playerData = new PlayerData();
             SavePlayerData();
         }
-        string fileContents = File.ReadAllText(filePath);
-        playerData = JSON.ParseString(fileContents).Deserialize<PlayerData>();
+        else
+        {
+            string encodedText = File.ReadAllText(filePath);
+            // Decode the Base64 string back to JSON string
+            byte[] decodedBytes = Convert.FromBase64String(encodedText);
+            string decodedJsonString = System.Text.Encoding.UTF8.GetString(decodedBytes);
+            playerData = JSON.ParseString(decodedJsonString).Deserialize<PlayerData>();
+        }
     }
 }
