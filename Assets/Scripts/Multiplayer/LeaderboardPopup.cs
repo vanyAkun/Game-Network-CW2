@@ -21,7 +21,7 @@ public class LeaderboardPopup : MonoBehaviour
             for (int i = 0; i < playerLeaderboardEntries.Count; i++)
             {
                 GameObject newLeaaderboardItem = Instantiate(leaderboardItem, Vector3.zero, Quaternion.identity, scoreHolder.transform);
-                newLeaaderboardItem.GetComponent<LeaderboardItem>().SetScores(i + 1, playerLeaderboardEntries[i].PlayFabId, playerLeaderboardEntries[i].StatValue);
+                newLeaaderboardItem.GetComponent<LeaderboardItem>().SetScores(i + 1, playerLeaderboardEntries[i].DisplayName, playerLeaderboardEntries[i].StatValue);
             }
             scoreHolder.SetActive(true);
             noScoreText.SetActive(false);
