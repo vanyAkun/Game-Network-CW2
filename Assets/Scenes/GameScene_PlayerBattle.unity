@@ -14090,6 +14090,7 @@ MonoBehaviour:
   winnerText: {fileID: 662440825}
   multiplayerTimer: {fileID: 0}
   notificationText: {fileID: 1416476978}
+  globalLeaderboard: {fileID: 0}
 --- !u!114 &1754358181
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -81,8 +81,13 @@ void UpdatePlayfabUsername(string name)
     }
     public void StartGameClicked()
     {
-        PhotonNetwork.CurrentRoom.IsOpen=false;
-        PhotonNetwork.CurrentRoom.IsVisible=false;
+        if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
+        {
+            Debug.Log("Min 2 players to play");
+            return; 
+        }
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.LoadLevel("GameScene_PlayerBattle");
     }
   public void ListRoomsClicked() //This is where we will start to use the Lobby in the Photon network.
