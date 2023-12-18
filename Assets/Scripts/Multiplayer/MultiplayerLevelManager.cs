@@ -17,6 +17,7 @@ public class MultiplayerLevelManager : MonoBehaviourPunCallbacks
     public Text winnerText;
     public MultiplayerTimer multiplayerTimer;
     public TextMeshProUGUI notificationText;
+    public GlobalLeaderboard globalLeaderboard;
 
     void Start()
     {
@@ -53,6 +54,7 @@ public class MultiplayerLevelManager : MonoBehaviourPunCallbacks
             playerData.totalPlayersInGame = PhotonNetwork.CurrentRoom.PlayerCount;
             playerData.roomName = PhotonNetwork.CurrentRoom.Name;
 
+            GameManager.instance.globalLeaderboard.SubmitScore(currentScore);
             GameManager.instance.SavePlayerData();
 
         }
