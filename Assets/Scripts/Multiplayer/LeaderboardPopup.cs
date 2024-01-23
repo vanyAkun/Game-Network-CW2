@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PlayFab.ClientModels;
+using UnityEngine.UI; // Ensure this is included for UI elements
 
 public class LeaderboardPopup : MonoBehaviour
 {
@@ -13,19 +14,22 @@ public class LeaderboardPopup : MonoBehaviour
     {
         GameManager.instance.globalLeaderboard.GetLeaderboard();
     }
+
     public void UpdateUI(List<PlayerLeaderboardEntry> playerLeaderboardEntries)
     {
-        if(playerLeaderboardEntries.Count > 0)
+        if (playerLeaderboardEntries.Count > 0)
         {
             DestroyChildren(scoreHolder.transform);
             for (int i = 0; i < playerLeaderboardEntries.Count; i++)
             {
-                GameObject newLeaaderboardItem = Instantiate(leaderboardItem, Vector3.zero, Quaternion.identity, scoreHolder.transform);
-                newLeaaderboardItem.GetComponent<LeaderboardItem>().SetScores(i + 1, playerLeaderboardEntries[i].DisplayName, playerLeaderboardEntries[i].StatValue);
+                GameObject newLeaderboardItem = Instantiate(leaderboardItem, Vector3.zero, Quaternion.identity, scoreHolder.transform);
+                LeaderboardItem itemScript = newLeaderboardItem.GetComponent<LeaderboardItem>();
+                int score = playerLeaderboardEntries[i].StatValue;
+                string medal = ClassifyPlayer(score);
+                itemScript.SetScores(i + 1, playerLeaderboardEntries[i].DisplayName, score, medal); // Updated to include medal
             }
             scoreHolder.SetActive(true);
             noScoreText.SetActive(false);
-
         }
         else
         {
@@ -33,11 +37,22 @@ public class LeaderboardPopup : MonoBehaviour
             noScoreText.SetActive(true);
         }
     }
+
     void DestroyChildren(Transform parent)
     {
-        foreach(Transform child in parent)
+        foreach (Transform child in parent)
         {
             Destroy(child.gameObject);
         }
+    }
+
+    private string ClassifyPlayer(int kills)
+    {
+        if (kills <= 5)
+            return "Bronze";
+        else if (kills <= 10)
+            return "Silver";
+        else
+            return "Gold";
     }
 }
