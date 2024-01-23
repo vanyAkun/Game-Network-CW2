@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PlayFab.ClientModels;
-using UnityEngine.UI; // Ensure this is included for UI elements
+
 
 public class LeaderboardPopup : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class LeaderboardPopup : MonoBehaviour
                 LeaderboardItem itemScript = newLeaderboardItem.GetComponent<LeaderboardItem>();
                 int score = playerLeaderboardEntries[i].StatValue;
                 string medal = ClassifyPlayer(score);
-                itemScript.SetScores(i + 1, playerLeaderboardEntries[i].DisplayName, score, medal); // Updated to include medal
+                itemScript.SetScores(i + 1, playerLeaderboardEntries[i].DisplayName, score, medal); 
             }
             scoreHolder.SetActive(true);
             noScoreText.SetActive(false);
